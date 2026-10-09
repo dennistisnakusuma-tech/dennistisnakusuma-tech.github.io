@@ -96,6 +96,7 @@ img{display:block;max-width:100%}
 .stats-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .stat{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 22px;opacity:0;will-change:opacity,transform}
 .stat .num{font-size:clamp(96px,20vw,260px);font-weight:800;letter-spacing:-.06em;line-height:.9}
+.stat .num.word{font-size:clamp(64px,13vw,190px);letter-spacing:-.05em;padding-bottom:.08em}
 .stat .unit{font-size:clamp(26px,3.4vw,44px);font-weight:700;letter-spacing:-.03em;margin-top:18px}
 .stat .desc{font-size:clamp(17px,1.6vw,21px);color:var(--grey);max-width:520px;margin-top:16px;line-height:1.45;font-weight:500}
 .dots{position:absolute;bottom:7vh;left:50%;transform:translateX(-50%);display:flex;gap:10px}
@@ -118,7 +119,7 @@ img{display:block;max-width:100%}
 .card .k{font-size:14px;font-weight:600;color:var(--grey-dark);letter-spacing:.01em}
 .card h3{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:12px}
 .card p{font-size:17px;line-height:1.47;color:#424245;margin-top:14px;font-weight:450}
-.card .big{margin-top:auto;font-size:76px;font-weight:800;letter-spacing:-.05em;line-height:1}
+.card .big{margin-top:auto;font-size:clamp(44px,12vw,58px);font-weight:800;letter-spacing:-.05em;line-height:1}
 .card.dark{background:#000;color:var(--paper)}.card.dark p{color:var(--grey)}.card.dark .k{color:var(--grey)}
 .card .icon{margin-top:auto;width:84px;height:84px}
 .paddles{display:flex;gap:14px}
@@ -248,13 +249,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="desc">Backend engineering and project leadership on banking payment systems.</div>
     </div>
     <div class="stat">
-      <div class="num grad">Tn</div>
-      <div class="unit">IDR moved every day.</div>
+      <div class="num word grad">Trillions</div>
+      <div class="unit">of IDR moved every day.</div>
       <div class="desc">Tax payment systems across E-Channels, governed end to end.</div>
     </div>
     <div class="stat">
-      <div class="num grad">M+</div>
-      <div class="unit">API calls a day.</div>
+      <div class="num word grad">Millions</div>
+      <div class="unit">of API calls a day.</div>
       <div class="desc">An internal gateway for cross-channel publish and consume.</div>
     </div>
     <div class="dots"><i></i><i></i><i></i></div>
@@ -279,8 +280,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <span class="k">Project Leadership · BCA</span>
       <h3>Tax payments at national scale.</h3>
       <p>Technical project manager and core developer governing tax payment systems across E-Channels.</p>
-      <div class="big grad">Tn IDR</div>
-      <p style="margin-top:6px">processed daily.</p>
+      <div class="big grad">Trillions</div>
+      <p style="margin-top:6px">of IDR processed daily.</p>
     </article>
     <article class="card dark rv d1">
       <span class="k">Recognition</span>
@@ -292,15 +293,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <span class="k">QRIS Integration</span>
       <h3>Indonesia QRIS, Customer-Presented Mode.</h3>
       <p>Built in Java Native together with the Mobile Banking teams.</p>
-      <div class="big grad">M+</div>
-      <p style="margin-top:6px">transactions.</p>
+      <div class="big grad">Millions</div>
+      <p style="margin-top:6px">of transactions.</p>
     </article>
     <article class="card dark rv d3">
       <span class="k">API Gateway</span>
       <h3>One gateway, every channel.</h3>
       <p>An internal gateway for cross-channel publish and consume.</p>
-      <div class="big grad">M+</div>
-      <p style="margin-top:6px">calls per day.</p>
+      <div class="big grad">Millions</div>
+      <p style="margin-top:6px">of API calls per day.</p>
     </article>
     <article class="card rv d4">
       <span class="k">SME &amp; Training</span>
