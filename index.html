@@ -204,11 +204,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 /* lite mode (phones, touch): plain flow instead of pinned / parallax scenes */
 .lite .stat,.lite .hero-title,.lite .portrait-wrap{will-change:auto}
-.lite .stats{height:auto}
-.lite .stats-sticky{position:relative;height:auto;flex-direction:column;gap:96px;padding:110px 0 120px}
-.lite .stat{position:relative;inset:auto;opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
-.lite .stat.in{opacity:1;transform:none}
-.lite .dots{display:none}
+.lite .stats{height:240vh;height:240svh}
 .lite .hero-title,.lite .portrait-wrap{transform:none!important;opacity:1!important}
 .lite .statement{padding:12vh 0 14vh}
 .lite .w{transition:color .6s}
@@ -448,12 +444,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   }
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15, rootMargin: '0px 0px -8% 0px' });
   $$('.rv').forEach(el => io.observe(el));
-  if (lite) {
-    const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) {
-      e.target.classList.add('in'); const n = e.target.querySelector('[data-count]'); if (n) countUp(n); so.unobserve(e.target);
-    } }), { threshold: .3 });
-    $$('.stat').forEach(el => so.observe(el));
-  }
 
   /* count up */
   const counted = new WeakSet();
@@ -478,11 +468,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       const r = wp.getBoundingClientRect();
       const lit = Math.round(clamp((vh * .9 - r.top) / (r.height + vh * .2)) * words.length);
       words.forEach((w, i) => w.classList.toggle('on', i < lit));
-      statEls.forEach(el => {
-        if (!el.classList.contains('in') && el.getBoundingClientRect().top < vh * .9) {
-          el.classList.add('in'); const n = el.querySelector('[data-count]'); if (n) countUp(n);
-        }
-      });
+      renderStats(.18, true);
       return;
     }
 
@@ -499,15 +485,23 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     const lit = Math.round(wpP * words.length);
     words.forEach((w, i) => w.classList.toggle('on', i < lit));
 
-    // stats: one number per third of the pinned section
+    renderStats(.25, false);
+  }
+
+  // Pinned stats: one number per third of the section. `fade` is the share of
+  // each third spent fading; phones use a shorter fade and keep the first
+  // number visible from the start so the scene never shows an empty screen.
+  function renderStats(fade, phone) {
     const sp = progress(stats) * statEls.length;
     statEls.forEach((el, i) => {
       const local = sp - i;                       // 0..1 while this stat owns the screen
-      const fadeIn = clamp(local / .25), fadeOut = i === statEls.length - 1 ? 1 : clamp((1 - local) / .25);
+      const fadeIn = phone && i === 0 ? 1 : clamp(local / fade);
+      const fadeOut = i === statEls.length - 1 ? 1 : clamp((1 - local) / fade);
       const o = Math.min(fadeIn, fadeOut);
       el.style.opacity = o;
-      el.style.transform = `translateY(${(local < .5 ? 1 - fadeIn : -(1 - fadeOut)) * 60}px) scale(${.94 + o * .06})`;
-      if (o > .5) { const n = el.querySelector('[data-count]'); if (n) countUp(n); }
+      el.style.transform = `translateY(${(local < .5 ? 1 - fadeIn : -(1 - fadeOut)) * 60}px)` + (phone ? '' : ` scale(${.94 + o * .06})`);
+      const shown = phone && i === 0 ? stats.getBoundingClientRect().top < innerHeight * .5 : o > .5;
+      if (shown) { const n = el.querySelector('[data-count]'); if (n) countUp(n); }
     });
     const active = clamp(Math.floor(sp), 0, statEls.length - 1);
     dots.forEach((d, i) => d.classList.toggle('on', i === active));

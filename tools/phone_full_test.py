@@ -12,7 +12,7 @@ OUT.mkdir(exist_ok=True)
 for f in OUT.glob("*.png"):
     f.unlink()
 
-HIDDEN = """() => [...document.querySelectorAll('.rv, .stat, .card, .tile, .cc, h1, h2')]
+HIDDEN = """() => [...document.querySelectorAll('.rv, .card, .tile, .cc, h1, h2')]
   .filter(el => { const r = el.getBoundingClientRect(); return r.bottom < innerHeight * .8 && r.bottom > 0 && r.height > 0; })
   .filter(el => +getComputedStyle(el).opacity < .5)
   .map(el => (el.className || el.tagName) + ':' + (el.textContent || '').trim().slice(0, 30))"""
